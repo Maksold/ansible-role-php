@@ -102,6 +102,7 @@ By default, all the extra defaults below are applied through the php.ini include
     php_max_input_time: "60"
     php_max_input_vars: "1000"
     php_realpath_cache_size: "32K"
+    php_realpath_cache_ttl: "120"
     php_file_uploads: "On"
     php_upload_max_filesize: "64M"
     php_max_file_uploads: "20"
@@ -114,6 +115,7 @@ By default, all the extra defaults below are applied through the php.ini include
     php_error_reporting: "E_ALL & ~E_DEPRECATED & ~E_STRICT"
     php_display_errors: "Off"
     php_display_startup_errors: "On"
+    php_error_log: "/var/log/php-errors.log"
     php_expose_php: "On"
     php_session_cookie_lifetime: 0
     php_session_gc_probability: 1

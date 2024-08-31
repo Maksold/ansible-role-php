@@ -18,3 +18,7 @@ pm.max_requests = {{ item.pool_pm_max_requests | default(500, true) }}
 {% if item.pool_pm_status_path|length %}
 pm.status_path = {{ item.pool_pm_status_path }}
 {% endif %}
+
+{% for item in php_fpm_php_admin_values %}
+php_admin_value[{{ item.keys()|first }}] = {{ item.values()|first }}
+{% endfor %}

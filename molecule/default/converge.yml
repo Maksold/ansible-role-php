@@ -1,7 +1,7 @@
 ---
 - name: Converge
   hosts: all
-  become: true
+  #become: true
 
   vars:
     php_enable_webserver: false
@@ -15,14 +15,14 @@
       apt:
         update_cache: true
         cache_valid_time: 600
-      when: ansible_os_family == 'Debian'
+      when: ansible_facts.os_family == 'Debian'
       changed_when: false
 
   roles:
     - role: geerlingguy.repo-remi
       when:
-        - ansible_os_family == 'RedHat'
-        - ansible_distribution != 'Fedora'
+        - ansible_facts.os_family == 'RedHat'
+        - ansible_facts.distribution != 'Fedora'
     - role: geerlingguy.php
 
   post_tasks:

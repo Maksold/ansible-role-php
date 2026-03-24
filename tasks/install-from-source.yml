@@ -27,11 +27,11 @@
       - mariadb-devel
       - gmp-devel
     state: present
-  when: ansible_os_family == 'RedHat'
+  when: ansible_facts.os_family == 'RedHat'
 
 - name: Update apt cache (Debian).
   apt: update_cache=yes cache_valid_time=86400
-  when: ansible_os_family == 'Debian'
+  when: ansible_facts.os_family == 'Debian'
 
 - name: Ensure dependencies for building from source are installed (Debian).
   apt:
@@ -59,7 +59,7 @@
       - librecode-dev
       - libssl-dev
     state: present
-  when: ansible_os_family == 'Debian'
+  when: ansible_facts.os_family == 'Debian'
 
 - name: Define php_fpm_daemon (if not defined already).
   set_fact:

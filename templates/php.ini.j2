@@ -15,9 +15,11 @@ implicit_flush = Off
 unserialize_callback_func =
 serialize_precision = {{ php_serialize_precision }}
 disable_functions = {{ php_disable_functions|join(",") }}
-disable_classes =
 
 zend.enable_gc = On
+zend.exception_ignore_args = {{ php_zend_exception_ignore_args }}
+zend.exception_string_param_max_len = {{ php_zend_exception_string_param_max_len }}
+zend.assertions = {{ php_zend_assertions }}
 
 ;;;;;;;;;;;;;;;;;
 ; Miscellaneous ;
@@ -47,8 +49,7 @@ log_errors_max_len = 1024
 ignore_repeated_errors = Off
 ignore_repeated_source = Off
 report_memleaks = On
-track_errors = Off
-html_errors = On
+html_errors = {{ php_html_errors }}
 
 ;;;;;;;;;;;;;;;;;
 ; Data Handling ;
@@ -64,6 +65,7 @@ auto_prepend_file =
 auto_append_file =
 
 default_mimetype = "text/html"
+default_charset = "{{ php_default_charset }}"
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;
 ; Paths and Directories ;
@@ -107,7 +109,6 @@ cli_server.color = On
 date.timezone = {{ php_date_timezone }}
 
 [Pdo_mysql]
-pdo_mysql.cache_size = 2000
 pdo_mysql.default_socket=
 
 [mail function]
@@ -118,10 +119,7 @@ smtp_port = 25
 ; For Unix only.  You may supply arguments as well (default: "sendmail -t -i").
 sendmail_path = {{ php_sendmail_path }}
 
-mail.add_x_header = On
-
-[SQL]
-sql.safe_mode = Off
+mail.add_x_header = {{ php_mail_add_x_header }}
 
 [ODBC]
 odbc.allow_persistent = On
@@ -131,31 +129,15 @@ odbc.max_links = -1
 odbc.defaultlrl = 4096
 odbc.defaultbinmode = 1
 
-[MySQL]
-mysql.allow_local_infile = On
-mysql.allow_persistent = On
-mysql.cache_size = 2000
-mysql.max_persistent = -1
-mysql.max_links = -1
-mysql.default_port =
-mysql.default_socket =
-mysql.default_host =
-mysql.default_user =
-mysql.default_password =
-mysql.connect_timeout = 60
-mysql.trace_mode = Off
-
 [MySQLi]
 mysqli.max_persistent = -1
 mysqli.allow_persistent = On
 mysqli.max_links = -1
-mysqli.cache_size = 2000
 mysqli.default_port = 3306
 mysqli.default_socket =
 mysqli.default_host =
 mysqli.default_user =
 mysqli.default_pw =
-mysqli.reconnect = Off
 
 [mysqlnd]
 mysqlnd.collect_statistics = On
@@ -183,7 +165,9 @@ session.auto_start = 0
 session.cookie_lifetime = {{ php_session_cookie_lifetime }}
 session.cookie_path = /
 session.cookie_domain =
-session.cookie_httponly =
+session.cookie_httponly = {{ php_session_cookie_httponly }}
+session.cookie_secure = {{ php_session_cookie_secure }}
+session.cookie_samesite = {{ php_session_cookie_samesite }}
 
 session.serialize_handler = php
 
@@ -197,20 +181,9 @@ session.cache_limiter = nocache
 session.cache_expire = 180
 
 session.use_trans_sid = 0
-
-session.hash_function = 0
-session.hash_bits_per_character = 5
+session.use_strict_mode = {{ php_session_use_strict_mode }}
 
 url_rewriter.tags = "a=href,area=href,frame=src,input=src,form=fakeentry"
-
-[MSSQL]
-mssql.allow_persistent = On
-mssql.max_persistent = -1
-mssql.max_links = -1
-mssql.min_error_severity = 10
-mssql.min_message_severity = 10
-mssql.compatability_mode = Off
-mssql.secure_connection = Off
 
 [Tidy]
 tidy.clean_output = Off

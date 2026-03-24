@@ -32,7 +32,18 @@ php_fpm_pm_min_spare_servers: 5
 php_fpm_pm_max_spare_servers: 5
 php_fpm_pm_max_requests: 0
 php_fpm_pm_status_path: ""
+php_fpm_request_terminate_timeout: "120s"
+php_fpm_request_slowlog_timeout: "5s"
+php_fpm_slowlog: "/var/log/php-fpm/www-slow.log"
+php_fpm_request_slowlog_trace_depth: "20"
+php_fpm_catch_workers_output: "yes"
+php_fpm_decorate_workers_output: "yes"
+php_fpm_clear_env: "yes"
+php_fpm_security_limit_extensions: ".php"
+php_fpm_access_log: ""
+php_fpm_access_format: ""
 php_fpm_php_admin_values: []
+php_fpm_php_admin_flags: []
 
 # PHP-FPM pool configuration.
 php_fpm_pools:
@@ -52,18 +63,27 @@ php_fpm_pools:
 php_executable: "php"
 
 # OpCache settings.
-php_opcache_zend_extension: "opcache.so"
 php_opcache_enable: "1"
 php_opcache_enable_cli: "0"
-php_opcache_memory_consumption: "96"
+php_opcache_memory_consumption: "256"
 php_opcache_interned_strings_buffer: "16"
-php_opcache_max_accelerated_files: "4096"
+php_opcache_max_accelerated_files: "10000"
 php_opcache_max_wasted_percentage: "5"
 php_opcache_validate_timestamps: "1"
 php_opcache_revalidate_path: "0"
 php_opcache_revalidate_freq: "2"
 php_opcache_max_file_size: "0"
-php_opcache_blacklist_filename: ""
+php_opcache_save_comments: "1"
+php_opcache_enable_file_override: "0"
+php_opcache_huge_code_pages: "0"
+php_opcache_consistency_checks: "0"
+php_opcache_record_warnings: "0"
+php_opcache_file_update_protection: "2"
+php_opcache_exclude_list_filename: ""
+
+# OPcache JIT (PHP 8.0+)
+php_opcache_jit: "disable"
+php_opcache_jit_buffer_size: "0"
 
 # APCu settings.
 php_enable_apc: true
@@ -74,7 +94,7 @@ php_apc_enable_cli: "0"
 # Any and all changes to /etc/php.ini will be your responsibility.
 php_use_managed_ini: true
 
-php_expose_php: "On"
+php_expose_php: "Off"
 php_memory_limit: "256M"
 php_max_execution_time: "60"
 php_max_input_time: "60"
@@ -92,6 +112,8 @@ php_post_max_size: "32M"
 php_date_timezone: "America/Chicago"
 php_allow_url_fopen: "On"
 
+php_default_charset: "UTF-8"
+php_html_errors: "On"
 php_sendmail_path: "/usr/sbin/sendmail -t -i"
 php_output_buffering: "4096"
 php_short_open_tag: "Off"
@@ -110,6 +132,20 @@ php_error_reporting: "E_ALL & ~E_DEPRECATED & ~E_STRICT"
 php_display_errors: "Off"
 php_display_startup_errors: "Off"
 php_error_log: "/var/log/php-errors.log"
+
+# Production security hardening (PHP 7.4+)
+php_zend_exception_ignore_args: "On"
+php_zend_exception_string_param_max_len: 0
+php_zend_assertions: -1
+
+# Session security
+php_session_cookie_httponly: "1"
+php_session_cookie_secure: "0"
+php_session_cookie_samesite: "Lax"
+php_session_use_strict_mode: "1"
+
+# Mail
+php_mail_add_x_header: "Off"
 
 # Install PHP from source (instead of using a package manager) with these vars.
 php_install_from_source: false

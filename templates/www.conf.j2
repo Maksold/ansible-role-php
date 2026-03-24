@@ -19,6 +19,25 @@ pm.max_requests = {{ item.pool_pm_max_requests | default(500, true) }}
 pm.status_path = {{ item.pool_pm_status_path }}
 {% endif %}
 
+request_terminate_timeout = {{ php_fpm_request_terminate_timeout }}
+slowlog = {{ php_fpm_slowlog }}
+request_slowlog_timeout = {{ php_fpm_request_slowlog_timeout }}
+request_slowlog_trace_depth = {{ php_fpm_request_slowlog_trace_depth }}
+
+catch_workers_output = {{ php_fpm_catch_workers_output }}
+decorate_workers_output = {{ php_fpm_decorate_workers_output }}
+clear_env = {{ php_fpm_clear_env }}
+security.limit_extensions = {{ php_fpm_security_limit_extensions }}
+{% if php_fpm_access_log %}
+access.log = {{ php_fpm_access_log }}
+{% endif %}
+{% if php_fpm_access_format %}
+access.format = "{{ php_fpm_access_format }}"
+{% endif %}
+
 {% for item in php_fpm_php_admin_values %}
 php_admin_value[{{ item.keys()|first }}] = {{ item.values()|first }}
+{% endfor %}
+{% for item in php_fpm_php_admin_flags %}
+php_admin_flag[{{ item.keys()|first }}] = {{ item.values()|first }}
 {% endfor %}

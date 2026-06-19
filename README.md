@@ -217,6 +217,7 @@ Reject uninitialized session IDs (session fixation protection).
 
 ### OpCache Variables
 
+    php_opcache_zend_extension: "opcache.so"
     php_opcache_enable: "1"
     php_opcache_enable_cli: "0"
     php_opcache_memory_consumption: "256"
